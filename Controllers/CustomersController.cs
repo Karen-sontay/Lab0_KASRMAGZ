@@ -92,7 +92,9 @@ namespace Lab0_KASRMAGZ.Controllers
         // GET: CustomersController/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
+            var DeleteCustomers = Singleton.Instance.CustomersList.Find(x => x.Id == id);
+            Singleton.Instance.CustomersList.Remove(DeleteCustomers);
+            return View(DeleteCustomers);
         }
 
         // POST: CustomersController/Delete/5
