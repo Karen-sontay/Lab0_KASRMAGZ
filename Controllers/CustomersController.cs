@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Lab0_KASRMAGZ.Models.Data;
+using Lab0_KASRMAGZ.Models;
+
 
 
 namespace Lab0_KASRMAGZ.Controllers
@@ -14,6 +16,7 @@ namespace Lab0_KASRMAGZ.Controllers
         // GET: CustomersController
         public ActionResult Index()
         {
+            Order.TryNeed();
             return View(Singleton.Instance.CustomersList);
         }
 
