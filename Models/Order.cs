@@ -7,5 +7,6 @@ namespace Lab0_KASRMAGZ.Models
 {
     public class Order
     {
+        int d;
     }
 }
