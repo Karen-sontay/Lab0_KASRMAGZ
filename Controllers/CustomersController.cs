@@ -16,7 +16,7 @@ namespace Lab0_KASRMAGZ.Controllers
         // GET: CustomersController
         public ActionResult Index()
         {
-            Order.TryNeed();
+            
             return View(Singleton.Instance.CustomersList);
         }
 
@@ -95,8 +95,7 @@ namespace Lab0_KASRMAGZ.Controllers
         // GET: CustomersController/Delete/5
         public ActionResult Delete(int id)
         {
-            var DeleteCustomers = Singleton.Instance.CustomersList.Find(x => x.Id == id);
-            Singleton.Instance.CustomersList.Remove(DeleteCustomers);
+            var DeleteCustomers = Singleton.Instance.CustomersList.Find(x => x.Id == id);            
             return View(DeleteCustomers);
         }
 
@@ -116,6 +115,12 @@ namespace Lab0_KASRMAGZ.Controllers
             {
                 return View();
             }
+        }
+
+        public ActionResult Sort()
+        {
+            Order.TryNeed();
+            return RedirectToAction(nameof(Index));
         }
     }
 }
