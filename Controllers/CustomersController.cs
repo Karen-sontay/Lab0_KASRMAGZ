@@ -13,10 +13,11 @@ namespace Lab0_KASRMAGZ.Controllers
 {
     public class CustomersController : Controller
     {
+        int idNumber=-1;
         // GET: CustomersController
         public ActionResult Index()
         {
-            Order.TryNeed();
+            //Order.TryNeed();
             return View(Singleton.Instance.CustomersList);
         }
 
@@ -42,14 +43,16 @@ namespace Lab0_KASRMAGZ.Controllers
             {
                 var newCustomers = new Models.Customers
                 {
-                    Id = Convert.ToInt32(collection["Id"]),
+                    Id = idNumber + 1,
                     Name = collection["Name"],
                     LastName = collection["LastName"],
                     Telephone = Convert.ToInt32(collection["Telephone"]),
                     Description = collection["Description"]
                 };
+                idNumber = idNumber + 1;
                 Singleton.Instance.CustomersList.Add(newCustomers);
                 return RedirectToAction(nameof(Index));
+                
             }
             catch
             {
@@ -116,6 +119,12 @@ namespace Lab0_KASRMAGZ.Controllers
             {
                 return View();
             }
+        }
+
+        public ActionResult Sort()
+        {
+            Order.TryNeed();
+            return RedirectToAction(nameof(Index));
         }
     }
 }
