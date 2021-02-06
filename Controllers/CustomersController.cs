@@ -119,31 +119,7 @@ namespace Lab0_KASRMAGZ.Controllers
             {
                 var DeleteCustomers = Singleton.Instance.CustomersList.Find(x => x.Id == id);
                 Singleton.Instance.CustomersList.Remove(DeleteCustomers);
-
-                //for(int i =id; i<Singleton.Instance.CustomersList.Count-1; i++)
-                //{
-                //    int IdDelete = id;
-                //    string NameTryDelete = Convert.ToString(Singleton.Instance.CustomersList.Find(x => x.Id == id+1).Name);
-                //    string LastNameDelete= Convert.ToString(Singleton.Instance.CustomersList.Find(x => x.Id == id+1).LastName);
-                //    int TelephoneTryDelete = Convert.ToInt32(Singleton.Instance.CustomersList.Find(x => x.Id == id+1).Telephone);
-                //    string DescriptionTryDelete = Convert.ToString(Singleton.Instance.CustomersList.Find(x => x.Id == id+1).Description);
-
-                //    var UpdateCustomers = new Models.Customers
-                //    {
-                //        Id = id,
-                //        Name = NameTryDelete,
-                //        LastName = LastNameDelete,
-                //        Telephone = TelephoneTryDelete,
-                //        Description = DescriptionTryDelete
-                //    };
-
-                //    var GDeleteCustomers = Singleton.Instance.CustomersList.Find(x => x.Id == id);
-                //    Singleton.Instance.CustomersList.Remove(GDeleteCustomers);
-                //    Singleton.Instance.CustomersList.Insert(id, UpdateCustomers);
-
-                //    id++;
-                //}
-
+                
                 return RedirectToAction(nameof(Index));
             }
             catch

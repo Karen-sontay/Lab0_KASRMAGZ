@@ -9,13 +9,10 @@ namespace Lab0_KASRMAGZ.Models
 {
     public static class Order
     {
-        public static void TryNeed()
+        public static void TryNeed(int OrderBy)
         {
             int n = Singleton.Instance.CustomersList.Count;
-            int cont = 0;
-			int cont1 = 0;
-			int cont2 = 0;
-			int l, j, aux;
+            int l, j;
             bool Test = false;
 
             for (l = 0; l < n - 1; l++)
@@ -23,22 +20,31 @@ namespace Lab0_KASRMAGZ.Models
                 for (j = l + 1; j < n; j++)
                 {
                     Test = false;
-                    string TryName1 = Convert.ToString(Singleton.Instance.CustomersList.Find(x => x.Id == l).Name);
-                    string TryName2 = Convert.ToString(Singleton.Instance.CustomersList.Find(x => x.Id == j).Name);
+                    string TryName1 = "";
+                    string TryName2 = "";
+
+                    if (OrderBy == 1)
+                    {
+                        TryName1 = Convert.ToString(Singleton.Instance.CustomersList.Find(x => x.Id == l).Name);
+                        TryName2 = Convert.ToString(Singleton.Instance.CustomersList.Find(x => x.Id == j).Name);
+                    }
+                    else if (OrderBy == 2)
+                    {
+                        TryName1 = Convert.ToString(Singleton.Instance.CustomersList.Find(x => x.Id == l).LastName);
+                        TryName2 = Convert.ToString(Singleton.Instance.CustomersList.Find(x => x.Id == j).LastName);
+                    }
+
                     var RemoveInfoI = Singleton.Instance.CustomersList.Find(x => x.Id == l);
                     var RemoveInfoJ = Singleton.Instance.CustomersList.Find(x => x.Id == j);
 
                     while (Test == false)
                     {
                         Test = true;
+                        
+                        int TryName11 = GetNumber((TryName1.Substring(0,1)).ToUpper());
+                        int TryName22 = GetNumber((TryName2.Substring(0, 1)).ToUpper());
 
-                        string TryName11 = TryName1.Substring(0, 1);
-                        string TryName22 = TryName2.Substring(0, 1);
-
-                        int TryName111 = GetNumber(TryName11);
-                        int TryName222 = GetNumber(TryName22);
-
-                        if (TryName111 > TryName222)
+                        if (TryName11 > TryName22)
                         {
                             //i
                             int IdTryI = Convert.ToInt32(Singleton.Instance.CustomersList.Find(x => x.Id == l).Id);
@@ -56,7 +62,7 @@ namespace Lab0_KASRMAGZ.Models
 
                             var UpdateCustumersI = new Models.Customers
                             {
-                                Id = IdTryI,
+                                Id = IdTryJ,
                                 Name = NameTryI,
                                 LastName = LastNameI,
                                 Telephone = TelephoneTryI,
@@ -65,7 +71,7 @@ namespace Lab0_KASRMAGZ.Models
 
                             var UpdateCustumersj = new Models.Customers
                             {
-                                Id = IdTryJ,
+                                Id = IdTryI,
                                 Name = NameTryJ,
                                 LastName = LastNameJ,
                                 Telephone = TelephoneTryJ,
@@ -74,26 +80,30 @@ namespace Lab0_KASRMAGZ.Models
 
                             Singleton.Instance.CustomersList.Remove(RemoveInfoJ);
                             Singleton.Instance.CustomersList.Remove(RemoveInfoI);
-                           Singleton.Instance.CustomersList.Insert(l, UpdateCustumersj);
+                            Singleton.Instance.CustomersList.Insert(l, UpdateCustumersj);
                             Singleton.Instance.CustomersList.Insert(j, UpdateCustumersI);
 
 
                         }
-                        else if (TryName111 == TryName222)
+                        else if (TryName11 == TryName22)
                         {
                             int Long1 = TryName1.Length;
                             int Long2 = TryName2.Length;
 
-                            TryName1 = TryName1.Substring(Long1-1,1);
-                            TryName2 = TryName2.Substring(Long2-1, 1);
-                            Test = false;
+                            if(Long1 != 1 && Long2 != 1)
+                            {
+                                TryName1 = TryName1.Substring(Long1 - 1, 1);
+                                TryName2 = TryName2.Substring(Long2 - 1, 1);
+                                Test = false;
+                            }
+                            else
+                            {
+                                Test = true;
+                            }
+                            
                         }
                     }
-
-
                 }
-
-
             }
 
             int GetNumber(string letter)
@@ -184,29 +194,7 @@ namespace Lab0_KASRMAGZ.Models
                 }
 
                 return number;
-            }
-
-            //         for(int i=0; i<n; i++)
-            //         {
-            //	int aux, l, j;
-            //	for (l = 0; l < n - 1; l++)
-            //	{
-            //		for (j = l + 1; j < n; j++)
-            //		{
-            //                     int first = Convert.ToInt32(Singleton.Instance.CustomersList.Find(x => x.Id == id));
-
-            //			int second = Convert.ToInt32(Singleton.Instance.CustomersList.Find(x => x.Id + 1== id));
-
-            //			if ((Singleton.Instance.CustomersList.Find(x => x.Id == id)) > Singleton.Instance.CustomersList.Find(x => x.Id == id))
-            //			{
-            //				aux = Convert::ToInt32(Arreglo[l]);
-            //				first = Convert::ToInt32(Arreglo[j]);
-            //				Arreglo[j] = aux;
-
-            //			}
-            //		}
-            //	}
-            //}
+            }            
         }
     }
 }
